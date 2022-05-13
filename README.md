@@ -3,16 +3,17 @@
 
 Creates macros to show separator rules
 
+![Screenshot](screenshot.png)
 
 ## Install package
-Put the separator-rule.sty file in any of this location
+Put the separator-rule.sty file in any of these locations
 
 * Put the `separator-rule.sty` file in the same path of main tex file.
 * Execute the commmand:
 
 	kpsewhich -var-value=TEXMFHOME
 
-    and this returns the path of local tex files. By example if returns 
+    and this returns the path of local tex files. By example, if returns 
 
 	/home/username/texmf
 

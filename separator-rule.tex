@@ -3,6 +3,7 @@
 
 \usepackage{separator-rule}
 \usepackage{lipsum}
+\usepackage[margin=25mm]{geometry}
 
 %opening
 \title{separator-rule package}
@@ -11,13 +12,13 @@
 \newcommand{\EXAMPLEOFSEPARATORRULE}[1]{%
 \noindent
 \parbox{\textwidth}{
-\texttt{\detokenize{\lipsum[1][1-4]}}\\
+\texttt{\detokenize{\lipsum[1][1-2]\\}}\\
 \texttt{\detokenize{#1}}\\
-\texttt{\detokenize{\lipsum[1][1-4]}}
+\texttt{\detokenize{\lipsum[1][1-2]}}
 }
-\lipsum[1][1-4]
+\lipsum[1][1-2]\\
 #1
-\lipsum[1][1-4]
+\lipsum[1][1-2]
 ~\\
 }
 
@@ -32,14 +33,14 @@ Creates macros to show separator rules
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Install package}
-Put the separator-rule.sty file in any of this location
+Put the separator-rule.sty file in any of these locations
 \begin{itemize}
 \item Put the \texttt{separator-rule.sty} file in the same path of main tex file.
 \item Execute the commmand:
 \begin{verbatim}
 kpsewhich -var-value=TEXMFHOME
 \end{verbatim}
-and this returns the path of local tex files. By example if returns 
+and this returns the path of local tex files. By example, if returns 
 \begin{verbatim}
 /home/username/texmf
 \end{verbatim}
