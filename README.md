@@ -8,7 +8,7 @@ Creates macros to show separator rules
 ## Install package
 Put the separator-rule.sty file in any of these locations
 
-* Put the `separator-rule.sty` file in the same path of main tex file.
+* Put the `separator-rule.sty` file in the same path of main tex file, or.
 * Execute the commmand:
 
 	kpsewhich -var-value=TEXMFHOME
