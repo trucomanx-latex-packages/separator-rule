@@ -4,11 +4,13 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{separator-rule}[2022/05/21 Package with macros to the math enviroment]
 
+\RequirePackage{xkeyval}
+
 %\RequirePackage{amsmath}
 \RequirePackage{amssymb} %% needed for \blacktriangleleft
 
 \RequirePackage{graphicx} %% needed for \resizebox
-
+\RequirePackage{pgfornament}
 
 % Options
 %\DeclareOption{red}{\renewcommand{\wordcolour}{sharelatexcolour}}
@@ -59,3 +61,37 @@
 }
 
 
+%-------------------------------------------------------------------------------
+%	Horizontal separator line with text
+%-------------------------------------------------------------------------------
+%   \HPgfoTextRule[4pt]{88}{Text}{88}
+%-------------------------------------------------------------------------------
+\makeatletter
+\define@key{HPgfoTextRuleKeys}{Separator}{\def\HPgfoTextRuleKeys@Separator{#1}}
+\define@key{HPgfoTextRuleKeys}{OrnamentWidth}{\def\HPgfoTextRuleKeys@OrnamentWidth{#1}}
+\define@key{HPgfoTextRuleKeys}{OrnamentColor}{\def\HPgfoTextRuleKeys@OrnamentColor{#1}}
+\define@key{HPgfoTextRuleKeys}{TextColor}{\def\HPgfoTextRuleKeys@TextColor{#1}}
+\define@key{HPgfoTextRuleKeys}{TextFormat}{\def\HPgfoTextRuleKeys@TextFormat{#1}}
+\define@key{HPgfoTextRuleKeys}{BeforeSpace}{\def\HPgfoTextRuleKeys@BeforeSpace{#1}}
+\define@key{HPgfoTextRuleKeys}{AfterSpace}{\def\HPgfoTextRuleKeys@AfterSpace{#1}}
+
+\newcommand{\HPgfoTextRule}[3][]%
+{%
+\setkeys{HPgfoTextRuleKeys}{
+Separator=3pt,
+OrnamentWidth=2cm,
+OrnamentColor=black,
+TextFormat=\bfseries,
+TextColor=black,
+BeforeSpace=-5pt,
+AfterSpace=5pt,
+}%
+\vskip \HPgfoTextRuleKeys@BeforeSpace%
+\noindent\makebox[\linewidth][c]{
+\pgfornament[color=\HPgfoTextRuleKeys@OrnamentColor,width=\HPgfoTextRuleKeys@OrnamentWidth]{#2}%
+\hspace{\HPgfoTextRuleKeys@Separator}\raisebox{-.5ex}{\color{\HPgfoTextRuleKeys@TextColor}\HPgfoTextRuleKeys@TextFormat#3}\hspace{\HPgfoTextRuleKeys@Separator}%
+\pgfornament[color=\HPgfoTextRuleKeys@OrnamentColor,width=\HPgfoTextRuleKeys@OrnamentWidth,symmetry=v]{#2}%
+}
+\vskip \HPgfoTextRuleKeys@AfterSpace
+}
+\makeatother

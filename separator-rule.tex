@@ -4,6 +4,23 @@
 \usepackage{separator-rule}
 \usepackage{lipsum}
 \usepackage[margin=25mm]{geometry}
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\usepackage{pgffor}
+\usepackage{ifthen}
+\usepackage{tikzrput}
+
+\usepackage{enumitem}
+\newlist{mydescription}{description}{1}
+\setlist[mydescription]{
+  labelwidth=3.5cm , % Ajusta el ancho de la etiqueta a tu preferencia
+  align=right,
+  labelsep=1ex, % Ajusta la separación entre la etiqueta y el texto
+  leftmargin=!, % Calcula automáticamente el margen izquierdo
+  font=\bfseries, % Ajusta la fuente según tus preferencias
+}
 
 \RequirePackage{pgfornament}
 
@@ -13,22 +30,32 @@
 
 \newcommand{\EXAMPLEOFSEPARATORRULE}[1]{%
 \medskip
+\noindent The next code shows a use example:
+\begin{mdframed}[backgroundcolor=black!10,rightline=false,leftline=false]
 \noindent
-\parbox{\textwidth}{
-\texttt{\detokenize{\lipsum[1][1-3]\\}}\\
+\texttt{\detokenize{\lipsum[1][1-4]\\}}\\
 \texttt{\detokenize{#1}}\\
-\texttt{\detokenize{\lipsum[1][1-3]}}
-}\\
+\texttt{\detokenize{\lipsum[1][1-4]}}
+\end{mdframed}
 
 \medskip
 \noindent
-\lipsum[1][1-3]\\
+\lipsum[1][1-4]\\
 #1
-\lipsum[1][1-3]
+\lipsum[1][1-4]
 ~\\
 \medskip
 }
 
+\newcommand{\SIMPLEEXAMPLEOFSEPARATORRULE}[1]{%
+\medskip
+\noindent The next code shows a use example:
+\begin{mdframed}[backgroundcolor=black!10,rightline=false,leftline=false]
+\texttt{\detokenize{#1}}
+\end{mdframed}
+#1
+\medskip
+}
 
 \begin{document}
 
@@ -44,17 +71,23 @@ Put the separator-rule.sty file in any of these locations
 \begin{itemize}
 \item Put the \texttt{separator-rule.sty} file in the same path of main tex file, or.
 \item Execute the commmand:
+\begin{mdframed}[backgroundcolor=black!10,rightline=false,leftline=false]
 \begin{verbatim}
 kpsewhich -var-value=TEXMFHOME
 \end{verbatim}
+\end{mdframed}
 and this returns the path of local tex files. By example, if returns 
+\begin{mdframed}[backgroundcolor=black!10,rightline=false,leftline=false]
 \begin{verbatim}
 /home/username/texmf
 \end{verbatim}
+\end{mdframed}
 then, put the \texttt{separator-rule.sty} file in the directory.
+\begin{mdframed}[backgroundcolor=black!10,rightline=false,leftline=false]
 \begin{verbatim}
 /home/username/texmf/tex/latex/separator-rule/separator-rule.sty
 \end{verbatim}
+\end{mdframed}
 \end{itemize}
 
 
@@ -63,24 +96,125 @@ then, put the \texttt{separator-rule.sty} file in the directory.
 \section{Load the package}
 To load the package use the next command in the preamble of main tex document.
 
+\begin{mdframed}[backgroundcolor=black!10,rightline=false,leftline=false]
 \begin{verbatim}
 \usepackage{separator-rule}
 \end{verbatim}
+\end{mdframed}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Using the package}
-Next, they are shown some examples use of all macros in the package.\\
+Next, I will provide examples that demonstrate the use of all the macros included in the package. 
+This will help illustrate how each macro functions within the context of the package and provide 
+practical insights into their applications.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Command: HRule }
+\begin{verbatim}
+\HRule[Height]
+\end{verbatim}
+\begin{mydescription}
+ \item[Height:] Height of rule.
+\end{mydescription}
 
 \EXAMPLEOFSEPARATORRULE{\HRule{2pt}}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Command: HTextRule }
+\begin{verbatim}
+\HTextRule[Height]{Text}
+\end{verbatim}
+\begin{mydescription}
+ \item[Height:] Height of rule.
+ \item[Text:] Text in the middle of rule.
+\end{mydescription}
+
 \EXAMPLEOFSEPARATORRULE{\HTextRule[5pt]{My text}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Command: HObjectTextRule }
 
 \begin{verbatim}
-\RequirePackage{pgfornament}
+\HObjectTextRule[ObjectTextLength]{LeftObject}{Text}{RightObject}
 \end{verbatim}
+\begin{mydescription}
+ \item[ObjectTextLength:] Length distance between any object and the text.
+ \item[LeftObject:] Object that will be placed in the left side of text.
+ \item[Text:] Text in the middle of rule.
+ \item[RightObject:] Object that will be placed in the right side of text.
+\end{mydescription}
 
-\EXAMPLEOFSEPARATORRULE{\HObjectTextRule[0.5cm]{\pgfornament[width=2cm]{72}}{My text}{\pgfornament[width=2cm]{73}}}
 
+\begin{mdframed}[backgroundcolor=black!10,rightline=false,leftline=false]
+\begin{verbatim}
+ \usepackage{pgfornament}
+\end{verbatim}
+\end{mdframed}
+
+\EXAMPLEOFSEPARATORRULE{\HObjectTextRule{\pgfornament[width=2cm]{72}}{Text}{\pgfornament[width=2cm]{73}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Command: HPgfoTextRule }
+See more about pgfornament in your \href{https://ctan.org/pkg/pgfornament?lang=en}{homepage}.
+\begin{verbatim}
+\HPgfoTextRule[KeyVals]{LeftOrnament}{Text}
+\end{verbatim}
+\begin{mydescription}
+ \item[KeyVals:] 
+    \begin{description}
+     \item[Separator=3pt] Length distance between any object and the text.
+     \item[OrnamentWidth=2cm] Width of ornament.
+     \item[OrnamentColor=black] Color of ornament.
+     \item[TextColor=black] Color of text.
+     \item[TextFormat=$\backslash$bfseries] Format of text.
+     \item[BeforeSpace=-5pt] Space before the rule.
+     \item[AfterSpace=5pt] Space after the rule.
+    \end{description}
+ \item[LeftOrnament:] Number of pgfornament that will be placed in the left side of text.
+ \item[Text:] Text in the middle of rule.
+\end{mydescription}
+
+\EXAMPLEOFSEPARATORRULE{\HPgfoTextRule{87}{Text}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\begin{center}
+\fontsize{120}{30}\selectfont\textbf{Anexos:\\Examples}
+\end{center}
+
+\newpage
+\section{PGF ornaments example}
+\foreach \n in {1,...,196}{
+\ifthenelse{\n=176}{}{
+\textbf{\n:}
+\pgfornament[width=2cm]{\n}
+}
+}
+
+\newpage
+\section{More examples}
+
+\begin{mdframed}[backgroundcolor=black!10,rightline=false,leftline=false]
+\begin{verbatim}
+\noindent
+\foreach \a in {0,30,...,330}{%
+\rput(\a;1.5cm){\pgfornament[width=3ex]{10}}%
+}
+\rput[Bl](0;0){Text that begin in the middle of circle}%
+\end{verbatim}
+\end{mdframed}
+
+\noindent
+\foreach \a in {0,30,...,330}{%
+\rput(\a;1.5cm){\pgfornament[width=3ex]{10}}%
+}
+\rput[Bl](0;0){Text that begin in the middle of circle}%
 
 \end{document}
