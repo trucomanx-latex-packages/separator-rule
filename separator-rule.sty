@@ -11,6 +11,7 @@
 
 \RequirePackage{graphicx} %% needed for \resizebox
 \RequirePackage{pgfornament}
+\RequirePackage{varwidth}
 
 % Options
 %\DeclareOption{red}{\renewcommand{\wordcolour}{sharelatexcolour}}
@@ -78,7 +79,7 @@
 \newcommand{\HPgfoTextRule}[3][]%
 {%
 \setkeys{HPgfoTextRuleKeys}{
-Separator=3pt,
+Separator=0pt,
 OrnamentWidth=2cm,
 OrnamentColor=black,
 TextFormat=\bfseries,
@@ -92,7 +93,21 @@ AfterSpace=5pt,
 \vskip \HPgfoTextRuleKeys@BeforeSpace%
 \noindent\makebox[\linewidth][c]{
 \pgfornament[color=\HPgfoTextRuleKeys@OrnamentColor,width=\HPgfoTextRuleKeys@OrnamentWidth]{#2}%
-\hspace{\HPgfoTextRuleKeys@Separator}\raisebox{-.5ex}{\color{\HPgfoTextRuleKeys@TextColor}\HPgfoTextRuleKeys@TextFormat#3}\hspace{\HPgfoTextRuleKeys@Separator}%
+\hspace{\HPgfoTextRuleKeys@Separator}%
+\raisebox{-.5ex}
+{%
+%\begin{center}
+\begin{varwidth}{%
+\textwidth
+-2\dimexpr\HPgfoTextRuleKeys@OrnamentWidth\relax
+-2\dimexpr\HPgfoTextRuleKeys@Separator\relax
+}
+\centering
+\expandafter{\color{\HPgfoTextRuleKeys@TextColor}\HPgfoTextRuleKeys@TextFormat#3}%
+\end{varwidth}%
+%\end{center}
+}%
+\hspace{\HPgfoTextRuleKeys@Separator}%
 \pgfornament[color=\HPgfoTextRuleKeys@OrnamentColor,width=\HPgfoTextRuleKeys@OrnamentWidth,symmetry=v]{#2}%
 }
 \vskip \HPgfoTextRuleKeys@AfterSpace
