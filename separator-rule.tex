@@ -7,6 +7,7 @@
 \usepackage{mdframed}
 \usepackage{xcolor}
 \usepackage{hyperref}
+\usepackage{lmodern}  % The lmodern package was used just to have access to a 80pt font size.
 
 \usepackage{pgffor}
 \usepackage{ifthen}
@@ -24,6 +25,8 @@
 
 \RequirePackage{pgfornament}
 
+
+
 %opening
 \title{separator-rule package}
 \author{Fernando Pujaico Rivera}
@@ -32,16 +35,19 @@
 \medskip
 \noindent The next code shows a use example:
 \begin{mdframed}[backgroundcolor=black!10,rightline=false,leftline=false]
-\noindent
-\texttt{\detokenize{\lipsum[1][1-4]\\}}\\
-\texttt{\detokenize{#1}}\\
-\texttt{\detokenize{\lipsum[1][1-4]}}
+\noindent\texttt{\detokenize{\lipsum[1][1-4]}}\\
+
+\noindent\texttt{\detokenize{#1}}\\
+
+\noindent\texttt{\detokenize{\lipsum[1][1-4]}}
 \end{mdframed}
 
 \medskip
 \noindent
-\lipsum[1][1-4]\\
+\lipsum[1][1-4]
+
 #1
+
 \lipsum[1][1-4]
 ~\\
 \medskip
@@ -89,10 +95,11 @@ then, put the \texttt{separator-rule.sty} file in the directory.
 \end{verbatim}
 \end{mdframed}
 \end{itemize}
-
+\vspace{-2ex}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{-2ex}
 \section{Load the package}
 To load the package use the next command in the preamble of main tex document.
 
@@ -101,13 +108,62 @@ To load the package use the next command in the preamble of main tex document.
 \usepackage{separator-rule}
 \end{verbatim}
 \end{mdframed}
-
+\vspace{-2ex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{-2ex}
 \section{Using the package}
 Next, I will provide examples that demonstrate the use of all the macros included in the package. 
 This will help illustrate how each macro functions within the context of the package and provide 
 practical insights into their applications.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{-2ex}
+\subsection{Command: HCharFill }
+\begin{verbatim}
+\HCharFill[Overlap]{Character}
+\end{verbatim}
+\begin{mydescription}
+ \item[Overlap:] Distance de overlap of characters.
+ \item[Character:] Character to be repited.
+\end{mydescription}
+\EXAMPLEOFSEPARATORRULE{\noindent\HCharFill[2em]{x}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Command: HPgfoFill }
+\begin{verbatim}
+\HCharFill[KeyVals]{Ornament}
+\end{verbatim}
+\begin{mydescription}
+ \item[KeyVals:] 
+    \begin{description}
+     \item[Width=2cm] Width of ornament.
+     \item[Color=black] Color of ornament.
+     \item[Symmetry=none] Symmetry can be: h,v,c.
+     \end{description}
+ \item[Ornament:] Number of pgfornament that will be used.
+\end{mydescription}
+
+\EXAMPLEOFSEPARATORRULE{\noindent\HPgfoFill[Width=1cm,Color=blue]{193}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Command: HGraphicFill }
+\begin{verbatim}
+\HCharFill[KeyVals]{Ornament}
+\end{verbatim}
+\begin{mydescription}
+ \item[KeyVals:] 
+    \begin{description}
+     \item[Width=2cm] Width of ornament.
+     \end{description}
+ \item[ImgPath:] Path of image.
+\end{mydescription}
+
+\EXAMPLEOFSEPARATORRULE{\noindent\HGraphicFill[Width=1cm]{chan-chan.png}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -186,7 +242,7 @@ See more about pgfornament in your \href{https://ctan.org/pkg/pgfornament?lang=e
 \newpage
 
 \begin{center}
-\fontsize{120}{30}\selectfont\textbf{Anexos:\\Examples}
+\fontsize{30}{30}\selectfont\textbf{Anexos:\\Examples}
 \end{center}
 
 \newpage

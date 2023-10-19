@@ -4,6 +4,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{separator-rule}[2022/05/21 Package with macros to the math enviroment]
 
+\RequirePackage{xcolor}
 \RequirePackage{xkeyval}
 
 %\RequirePackage{amsmath}
@@ -12,6 +13,8 @@
 \RequirePackage{graphicx} %% needed for \resizebox
 \RequirePackage{pgfornament}
 \RequirePackage{varwidth}
+\RequirePackage{calc}   % sin esto no funciona bien \dimexpr (sobreescribe \dimexpr de latex)
+
 
 % Options
 %\DeclareOption{red}{\renewcommand{\wordcolour}{sharelatexcolour}}
@@ -23,6 +26,69 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Macros 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-------------------------------------------------------------------------------
+%	Horizontal char fill
+%-------------------------------------------------------------------------------
+%   \HCharFill[1em]{=}
+%-------------------------------------------------------------------------------
+\newcommand{\HCharFill}[2][1em]{%
+  \leavevmode
+  \cleaders\hbox to #1{\hss#2\hss}\hfill
+  \kern0pt
+}
+
+
+%-------------------------------------------------------------------------------
+%	Horizontal PGF ornament fill
+%-------------------------------------------------------------------------------
+%   \HPgfoFill[1em]{=}
+%-------------------------------------------------------------------------------
+\makeatletter
+\define@key{HPgfoFillKeys}{Width}{\def\HPgfoFillKeys@Width{#1}}
+\define@key{HPgfoFillKeys}{Color}{\def\HPgfoFillKeys@Color{#1}}
+\define@key{HPgfoFillKeys}{Symmetry}{\def\HPgfoFillKeys@Symmetry{#1}}
+
+\newcommand{\HPgfoFill}[2][]{%
+\setkeys{HPgfoFillKeys}{
+Width=2cm,
+Color=black,
+Symmetry=none,
+}%
+\setkeys{HPgfoFillKeys}{#1}%
+\leavevmode
+\cleaders\hbox to \HPgfoFillKeys@Width{\hss\pgfornament[
+symmetry=\HPgfoFillKeys@Symmetry,
+color=\HPgfoFillKeys@Color,
+width=\HPgfoFillKeys@Width
+]{#2}\hss}\hfill
+\kern0pt
+}
+
+\makeatother
+
+%-------------------------------------------------------------------------------
+%	Horizontal Graphics fill
+%-------------------------------------------------------------------------------
+%   \HPgfoFill[1em]{=}
+%-------------------------------------------------------------------------------
+\makeatletter
+\define@key{HGraphicFillKeys}{Width}{\def\HGraphicFillKeys@Width{#1}}
+
+\newcommand{\HGraphicFill}[2][]{%
+\setkeys{HGraphicFillKeys}{
+Width=2cm,
+}%
+\setkeys{HGraphicFillKeys}{#1}%
+\leavevmode
+\cleaders\hbox to \HGraphicFillKeys@Width{\hss\includegraphics[
+width=\HGraphicFillKeys@Width
+]{#2}\hss}\hfill
+\kern0pt
+}
+
+\makeatother
+
 %-------------------------------------------------------------------------------
 %	Horizontal separator line
 %-------------------------------------------------------------------------------
@@ -85,31 +151,27 @@ OrnamentColor=black,
 TextFormat=\bfseries,
 TextColor=black,
 BeforeSpace=-5pt,
-AfterSpace=5pt,
+AfterSpace=0pt,
 }%
-
+%
 \setkeys{HPgfoTextRuleKeys}{#1}%
-
-\vskip \HPgfoTextRuleKeys@BeforeSpace%
+%
+\leavevmode\vspace{\HPgfoTextRuleKeys@BeforeSpace}%
 \noindent\makebox[\linewidth][c]{
 \pgfornament[color=\HPgfoTextRuleKeys@OrnamentColor,width=\HPgfoTextRuleKeys@OrnamentWidth]{#2}%
 \hspace{\HPgfoTextRuleKeys@Separator}%
 \raisebox{-.5ex}
 {%
-%\begin{center}
 \begin{varwidth}{%
-\textwidth
--2\dimexpr\HPgfoTextRuleKeys@OrnamentWidth\relax
--2\dimexpr\HPgfoTextRuleKeys@Separator\relax
-}
+\textwidth-2\dimexpr\HPgfoTextRuleKeys@OrnamentWidth\relax-2\dimexpr\HPgfoTextRuleKeys@Separator\relax%
+}%
 \centering
 \expandafter{\color{\HPgfoTextRuleKeys@TextColor}\HPgfoTextRuleKeys@TextFormat#3}%
 \end{varwidth}%
-%\end{center}
 }%
 \hspace{\HPgfoTextRuleKeys@Separator}%
 \pgfornament[color=\HPgfoTextRuleKeys@OrnamentColor,width=\HPgfoTextRuleKeys@OrnamentWidth,symmetry=v]{#2}%
 }
-\vskip \HPgfoTextRuleKeys@AfterSpace
-}
+\leavevmode\vspace{\HPgfoTextRuleKeys@AfterSpace}%
+}%
 \makeatother
