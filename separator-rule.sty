@@ -144,6 +144,7 @@ width=\HGraphicFillKeys@Width
 
 \newcommand{\HPgfoTextRule}[3][]%
 {%
+\noindent
 \setkeys{HPgfoTextRuleKeys}{
 Separator=0pt,
 OrnamentWidth=2cm,
@@ -155,8 +156,8 @@ AfterSpace=0pt,
 }%
 %
 \setkeys{HPgfoTextRuleKeys}{#1}%
-
-\leavevmode\vspace{\HPgfoTextRuleKeys@BeforeSpace}
+%
+\leavevmode\vspace{\HPgfoTextRuleKeys@BeforeSpace}%
 \noindent\makebox[\linewidth][c]{
 \pgfornament[color=\HPgfoTextRuleKeys@OrnamentColor,width=\HPgfoTextRuleKeys@OrnamentWidth]{#2}%
 \hspace{\HPgfoTextRuleKeys@Separator}%
