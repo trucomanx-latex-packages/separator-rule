@@ -3,7 +3,7 @@
 
 Creates macros to show separator rules
 
-![Screenshot](https://sourceforge.net/p/latex-macros-packages/separator-rule/ci/main/tree/screenshot.png)
+![Screenshot](screenshot.png)
 
 ## Install package
 Put the separator-rule.sty file in any of these locations
